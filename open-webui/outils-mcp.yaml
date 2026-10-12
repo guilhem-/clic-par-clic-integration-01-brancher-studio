@@ -1,0 +1,49 @@
+# Réponse du studio à tools/list : ce que le modèle reçoit, outil par outil.
+# Écrit par « python installer.py --outils » (descriptions telles quelles).
+- name: soumettre_rendu
+  description: |
+    Met en file d'attente le rendu d'une scène Blender et répond immédiatement.
+
+    code : script Python (bpy) qui construit la scène dans une scène vide : objets, matériaux,
+    lumière, caméra. Ne pas régler le moteur ni enregistrer : le studio s'en charge
+    (Cycles, 1280 x 720, PNG + modèle 3D GLB). Les objets de décor (sol, table, fond) doivent avoir
+    un nom commençant par « Decor » : ils sont rendus mais pas exportés dans le modèle 3D.
+    marquage_visible : true pour un bandeau visible sur l'image (source et date),
+    seulement si l'utilisateur demande une mention visible ; sinon, ne pas le renseigner.
+    Le studio marque toujours le fichier de façon invisible (métadonnées).
+    Le studio a une bibliothèque d'objets réels et d'éclairages HDRI : cherchez avec lister_assets,
+    puis utilisez charger_asset("nom") et environnement("nom") dans le code, jamais un chemin de fichier.
+    Renvoie le numéro de la demande et sa position dans la file.
+  inputSchema:
+    required: [titre, code]
+    properties:
+      titre: { type: string }
+      code: { type: string }
+      marquage_visible: { type: boolean | null, default: null }
+- name: etat_rendu
+  description: |
+    Donne l'état d'une demande de l'utilisateur : en_attente (avec sa position), en_cours,
+    termine (avec l'image en Markdown et l'artefact 3D à recopier tels quels, et le lien de la scène
+    Blender, scene_blend_markdown, à recopier tel quel s'il est présent) ou erreur.
+  inputSchema:
+    required: [numero]
+    properties:
+      numero: { type: integer }
+- name: mes_rendus
+  description: |
+    Liste les demandes de l'utilisateur connecté (statut, worker, position), de la plus récente à la plus ancienne.
+  inputSchema:
+    properties: {}
+- name: lister_assets
+  description: |
+    Cherche dans la bibliothèque d'assets du studio : objets 3D réels (genre « modele ») et
+    éclairages HDRI (genre « environnement »). À appeler avant de construire un meuble, un objet ou
+    un éclairage : s'il existe, utilisez-le. recherche : un mot (chaise, lampe, studio…), vide pour tout.
+    Dans le code de la scène : charger_asset("nom", position=(x, y, z), rotation_z=…) pour un objet
+    (posé au sol à cette position, dimensions en mètres : largeur, profondeur, hauteur ; face avant
+    tournée vers -y : rotation_z=math.pi pour la tourner vers +y), environnement("nom") pour l'éclairage.
+    Pour montrer la bibliothèque à l'utilisateur, recopiez vignette_markdown.
+  inputSchema:
+    properties:
+      recherche: { type: string, default: "" }
+      genre: { type: string, default: "" }

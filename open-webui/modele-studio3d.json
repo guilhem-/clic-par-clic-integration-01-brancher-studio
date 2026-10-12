@@ -1,0 +1,18 @@
+{
+  "id": "studio-3d",
+  "name": "Studio 3D",
+  "base_model_id": "${MODELE_BASE}",
+  "meta": {
+    "description": "Images et objets 3D calculés par le studio de l'organisation",
+    "toolIds": ["server:mcp:studio"],
+    "capabilities": { "builtin_tools": false }
+  },
+  "params": {
+    "function_calling": "native",
+    "system": "(contenu de consignes-modele.txt)"
+  },
+  "access_grants": [
+    { "principal_type": "group", "principal_id": "${GROUPE_ID}", "permission": "read" }
+  ],
+  "is_active": true
+}
