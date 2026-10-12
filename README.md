@@ -62,7 +62,8 @@ stockage S3 branché).
    `studio`.
 3. **Avancé › En-têtes HTTP** : `{"X-Utilisateur-Email": "{{USER_EMAIL}}"}`. Open WebUI remplace
    aussi `{{USER_ID}}`, `{{USER_NAME}}`, `{{USER_ROLE}}`, `{{USER_GROUPS}}` (le module 2 ajoute
-   `X-Utilisateur-Id: {{USER_ID}}`).
+   `X-Utilisateur-Id: {{USER_ID}}`, voir le dépôt
+   [clic-par-clic-integration-02-notifications](https://github.com/guilhem-/clic-par-clic-integration-02-notifications)).
 4. **Liste de filtrage des fonctions par nom** : `soumettre_rendu, etat_rendu, mes_rendus,
    lister_assets` (des noms sans « ! » forment une liste d'autorisation).
 5. **Contrôle d'accès › Ajouter un accès** : le groupe « Graphistes ». **Vérifier la connexion**,
@@ -116,7 +117,8 @@ Un compte hors du groupe ne voit ni le modèle ni la connexion.
 ## Série
 
 - Module suivant : **Prévenir l'utilisateur quand son rendu est prêt** (message direct d'un compte
-  robot, en-tête `{{USER_ID}}`).
+  robot, en-tête `{{USER_ID}}`) —
+  [clic-par-clic-integration-02-notifications](https://github.com/guilhem-/clic-par-clic-integration-02-notifications).
 - Construire le studio : série « Créer un service d'IA compatible agentique : le studio 3D » (dépôts
   ci-dessus).
 
